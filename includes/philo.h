@@ -26,7 +26,7 @@ typedef struct s_args {
 	t_timestamp		die_time;
 	t_timestamp		eat_time;
 	t_timestamp		sleep_time;
-	int				eat_count;
+	int				meals_count;
 }	t_args;
 
 typedef struct s_philo
@@ -35,6 +35,7 @@ typedef struct s_philo
 	int				right_hand;
 	int				left_hand;
 	t_timestamp		last_meal;
+	int				meals_count;
 }	t_philo;
 
 typedef struct s_vars {
@@ -48,8 +49,13 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_atoi(const char *str);
 t_timestamp	ft_atoi_ull(const char *str);
 void		*ft_calloc(size_t count, size_t size);
+void		*ft_free(void *ptr);
+void		*ft_free_2d(void **ptr);
+void		*ft_free_3d(void ***ptr);
 t_timestamp	ft_get_timestamp(t_timestamp *timest);
 
 int			ft_is_fork_surrounded(t_vars *vars, int philo_id);
+int			ft_meals_count_reached(t_vars vars);
+void		ft_quit_program(int status, t_vars *vars, int unlock_mutex, int destroy_mutex);
 
 #endif
