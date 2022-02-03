@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_timestamp.c                                 :+:      :+:    :+:   */
+/*   ft_meals_count_reached.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/01 15:18:10 by hel-makh          #+#    #+#             */
-/*   Updated: 2022/02/01 15:18:10 by hel-makh         ###   ########.fr       */
+/*   Created: 2022/02/02 01:44:13 by hel-makh          #+#    #+#             */
+/*   Updated: 2022/02/02 01:55:55 by hel-makh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_timestamp	ft_get_timestamp(t_timestamp *timest)
+int	ft_meals_count_reached(t_vars vars)
 {
-	struct timeval	time;
-	t_timestamp		timestamp;
+	int	i;
 
-	gettimeofday(&time, NULL);
-	timestamp = time.tv_sec * 1000000;
-	timestamp += time.tv_usec;
-	timestamp /= 1000;
-	if (timest)
-		*timest = timestamp;
-	return (timestamp);
+	i = 0;
+	while (i < vars.args.philo_count)
+	{
+		if (vars.philo[i].meals_count < vars.args.meals_count)
+			return (0);
+		i ++;
+	}
+	return (1);
 }
