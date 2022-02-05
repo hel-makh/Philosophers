@@ -15,20 +15,21 @@
 int	ft_is_fork_surrounded(t_vars *vars, int philo_id)
 {
 	t_philo	*philo;
-	t_philo	*right_philo;
-	t_philo	*left_philo;
+	int		right_philo_id;
+	int		left_philo_id;
 
 	philo = &vars->philo[philo_id];
-	if (philo_id + 1 >= vars->args.philo_count)
-		right_philo = &vars->philo[0];
-	else
-		right_philo = &vars->philo[philo_id + 1];
-	if (philo_id - 1 < 0)
-		left_philo = &vars->philo[vars->args.philo_count - 1];
-	else
-		left_philo = &vars->philo[philo_id - 1];
+	right_philo_id = philo_id + 1;
+	if (right_philo_id >= vars->args.philo_count)
+		right_philo_id = 0;
+	left_philo_id = philo_id - 1;
+	if (left_philo_id < 0)
+		left_philo_id = vars->args.philo_count - 1;
+	if (right_philo_id == left_philo_id)
+		return (0);
 	if (!philo->right_hand && !philo->left_hand
-		&& !right_philo->left_hand && !left_philo->right_hand)
+		&& !vars->philo[right_philo_id].left_hand
+		&& !vars->philo[left_philo_id].right_hand)
 		return (1);
 	return (0);
 }
