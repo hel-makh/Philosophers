@@ -4,7 +4,7 @@ NAME			=	philo
 
 MAIN			=	main.c
 
-SRCS			=	srcs/ft_strcmp.c\
+SRCS			=	srcs/ft_strncmp.c\
 					srcs/ft_isint.c\
 					srcs/ft_atoi.c\
 					srcs/ft_atoi_ull.c\
@@ -26,7 +26,7 @@ OBJS			=	$(SRCS:.c=.o)\
 
 # MAIN_BONUS		=	main_bonus.c
 
-# SRCS_BONUS		=	srcs/ft_strcmp.c\
+# SRCS_BONUS		=	srcs/ft_strncmp.c\
 # 					srcs/ft_isint.c\
 # 					srcs/ft_atoi.c\
 # 					srcs/ft_atoi_ull.c\

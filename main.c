@@ -12,7 +12,7 @@
 
 #include "includes/philo.h"
 
-// #include "srcs/ft_strcmp.c"
+// #include "srcs/ft_strncmp.c"
 // #include "srcs/ft_isint.c"
 // #include "srcs/ft_atoi.c"
 // #include "srcs/ft_atoi_ull.c"
@@ -107,8 +107,8 @@ int	main(int argc, char *argv[])
 		while (*argv[i] == ' ')
 			*(argv + i) += 1;
 		if (!ft_isint(argv[i])
-			|| (ft_atoi_ull(argv[i]) == 0 && ft_strcmp(argv[i], "0")
-				&& ft_strcmp(argv[i], "-0") && ft_strcmp(argv[i], "+0")))
+			|| (ft_atoi_ull(argv[i]) == 0 && ft_strncmp(argv[i], "0", 1)
+				&& ft_strncmp(argv[i], "-0", 2) && ft_strncmp(argv[i], "+0", 2)))
 			return (EXIT_FAILURE);
 		i ++;
 	}

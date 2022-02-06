@@ -46,7 +46,7 @@ typedef struct s_vars {
 	pthread_mutex_t	mutex;
 }	t_vars;
 
-int			ft_strcmp(const char *s1, const char *s2);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_isint(const char *str);
 int			ft_atoi(const char *str);
 t_timestamp	ft_atoi_ull(const char *str);
