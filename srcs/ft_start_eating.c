@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-void	ft_start_eating(t_vars *vars, int philo_id)
+int	ft_start_eating(t_vars *vars, int philo_id)
 {
 	t_philo	*philo;
 
@@ -20,21 +20,23 @@ void	ft_start_eating(t_vars *vars, int philo_id)
 	if (!ft_is_fork_surrounded(vars, philo_id))
 	{
 		pthread_mutex_unlock(&vars->mutex);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	philo = &vars->philo[philo_id];
 	philo->right_hand = 1;
-	printf("%llu_in_ms %d has taken a fork\n",
-		ft_get_timestamp(NULL), philo_id + 1);
+	printf("%llu %d has taken a fork\n", ft_get_timestamp(), philo_id + 1);
 	philo->left_hand = 1;
-	printf("%llu_in_ms %d has taken a fork\n",
-		ft_get_timestamp(NULL), philo_id + 1);
-	philo->last_meal = ft_get_timestamp(NULL);
-	printf("%llu_in_ms %d is eating\n", philo->last_meal, philo_id + 1);
+	printf("%llu %d has taken a fork\n", ft_get_timestamp(), philo_id + 1);
+	philo->last_meal = ft_get_timestamp();
+	printf("%llu %d is eating\n", philo->last_meal, philo_id + 1);
 	philo->meals_count ++;
 	if (vars->args.meals_count && ft_meals_count_reached(*vars))
-		ft_quit_program(EXIT_SUCCESS, vars, 1, 1);
+	{
+		pthread_mutex_unlock(&vars->mutex);
+		return (-1);
+	}
 	pthread_mutex_unlock(&vars->mutex);
-	usleep(vars->args.eat_time * 1000);
+	ft_usleep(vars->args.eat_time);
 	ft_start_sleeping(vars, philo_id);
+	return (EXIT_SUCCESS);
 }

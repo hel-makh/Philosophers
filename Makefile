@@ -11,11 +11,12 @@ SRCS			=	srcs/ft_strncmp.c\
 					srcs/ft_calloc.c\
 					srcs/ft_free.c\
 					srcs/ft_get_timestamp.c\
+					srcs/ft_usleep.c\
 					srcs/ft_is_fork_surrounded.c\
 					srcs/ft_meals_count_reached.c\
 					srcs/ft_start_eating.c\
 					srcs/ft_start_sleeping.c\
-					srcs/ft_quit_program.c
+					srcs/ft_return_error.c
 
 OBJS			=	$(SRCS:.c=.o)\
 					$(MAIN:.c=.o)
@@ -33,11 +34,12 @@ OBJS			=	$(SRCS:.c=.o)\
 # 					srcs/ft_calloc.c\
 # 					srcs/ft_free.c\
 # 					srcs/ft_get_timestamp.c\
+#					srcs/ft_usleep.c\
 # 					srcs/ft_is_fork_surrounded.c\
 # 					srcs/ft_meals_count_reached.c\
 # 					srcs/ft_start_eating.c\
 # 					srcs/ft_start_sleeping.c\
-# 					srcs/ft_quit_program.c
+# 					srcs/ft_return_error.c
 
 # OBJS_BONUS		=	$(SRCS_BONUS:.c=.o)\
 # 					$(MAIN_BONUS:.c=.o)

@@ -33,6 +33,7 @@ typedef struct s_args {
 typedef struct s_philo
 {
 	pthread_t		thread;
+	int				philo_id;
 	int				right_hand;
 	int				left_hand;
 	t_timestamp		last_meal;
@@ -54,13 +55,14 @@ void		*ft_calloc(size_t count, size_t size);
 void		*ft_free(void *ptr);
 void		*ft_free_2d(void **ptr);
 void		*ft_free_3d(void ***ptr);
-t_timestamp	ft_get_timestamp(t_timestamp *timest);
+t_timestamp	ft_get_timestamp(void);
+void		ft_usleep(t_timestamp sleeptime);
 
 int			ft_is_fork_surrounded(t_vars *vars, int philo_id);
 int			ft_meals_count_reached(t_vars vars);
-void		ft_start_eating(t_vars *vars, int philo_id);
+int			ft_start_eating(t_vars *vars, int philo_id);
 void		ft_start_sleeping(t_vars *vars, int philo_id);
-void		ft_quit_program(
+int			ft_return_error(
 				int status, t_vars *vars, int unlock_mutex, int destroy_mutex
 				);
 

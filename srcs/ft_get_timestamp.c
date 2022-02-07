@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-t_timestamp	ft_get_timestamp(t_timestamp *timest)
+t_timestamp	ft_get_timestamp(void)
 {
 	struct timeval	time;
 	t_timestamp		timestamp;
@@ -21,7 +21,5 @@ t_timestamp	ft_get_timestamp(t_timestamp *timest)
 	timestamp = time.tv_sec * 1000000;
 	timestamp += time.tv_usec;
 	timestamp /= 1000;
-	if (timest)
-		*timest = timestamp;
 	return (timestamp);
 }

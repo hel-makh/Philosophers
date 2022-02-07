@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-void	ft_quit_program(
+int	ft_return_error(
 	int status, t_vars *vars, int unlock_mutex, int destroy_mutex
 	)
 {
@@ -21,5 +21,5 @@ void	ft_quit_program(
 		pthread_mutex_unlock(&vars->mutex);
 	if (destroy_mutex)
 		pthread_mutex_destroy(&vars->mutex);
-	exit(status);
+	return (status);
 }

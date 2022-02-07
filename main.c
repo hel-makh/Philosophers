@@ -24,7 +24,7 @@
 // #include "srcs/ft_meals_count_reached.c"
 // #include "srcs/ft_start_eating.c"
 // #include "srcs/ft_start_sleeping.c"
-// #include "srcs/ft_quit_program.c"
+// #include "srcs/ft_return_error.c"
 
 static void	*start_simulation(void *arg)
 {
@@ -34,53 +34,54 @@ static void	*start_simulation(void *arg)
 
 	vars = (t_vars *)arg;
 	pthread_mutex_lock(&vars->mutex);
-	philo_id = vars->philo_id - 1;
+	philo_id = vars->philo_id;
+	vars->philo[vars->philo_id].philo_id = vars->philo_id + 1;
+	pthread_mutex_unlock(&vars->mutex);
 	philo = &vars->philo[philo_id];
 	if (philo_id == 0)
-		philo->last_meal = ft_get_timestamp(NULL);
+		philo->last_meal = ft_get_timestamp();
 	philo->last_meal = vars->philo[0].last_meal;
-	printf("%llu_in_ms %d is thinking\n", philo->last_meal, philo_id + 1);
-	pthread_mutex_unlock(&vars->mutex);
+	printf("%llu %d is thinking\n", philo->last_meal, philo_id + 1);
 	while (1)
 	{
-		if (philo->last_meal + vars->args.die_time < ft_get_timestamp(NULL))
+		if (philo->last_meal + vars->args.die_time < ft_get_timestamp())
 		{
 			pthread_mutex_lock(&vars->mutex);
-			printf("%llu_in_ms %d died\n", ft_get_timestamp(NULL), philo_id + 1);
-			ft_quit_program(EXIT_SUCCESS, vars, 0, 0);
+			printf("%llu %d died\n", ft_get_timestamp(), philo_id + 1);
+			break ;
 		}
 		if (ft_is_fork_surrounded(vars, philo_id))
-			ft_start_eating(vars, philo_id);
+			if (ft_start_eating(vars, philo_id) == -1)
+				break ;
 	}
-	return (NULL);
+	return (EXIT_SUCCESS);
 }
 
-static void	philosophers(t_vars *vars)
+static int	philosophers(t_vars *vars)
 {
-	int	i;
-
 	vars->philo = ft_calloc(vars->args.philo_count, sizeof(t_philo));
 	if (!vars->philo)
-		exit(EXIT_FAILURE);
-	if (pthread_mutex_init(&vars->mutex, NULL) != 0)
-		ft_quit_program(EXIT_FAILURE, vars, 0, 0);
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&vars->mutex, NULL))
+		return (ft_return_error(EXIT_FAILURE, vars, 0, 0));
 	vars->philo_id = 0;
 	while (vars->philo_id < vars->args.philo_count)
 	{
 		if (pthread_create(&vars->philo[vars->philo_id].thread, NULL,
 				&start_simulation, (void *)vars))
-			ft_quit_program(EXIT_FAILURE, vars, 0, 1);
+			return (ft_return_error(EXIT_FAILURE, vars, 0, 1));
+		while (!vars->philo[vars->philo_id].philo_id)
+			;
 		vars->philo_id ++;
 	}
-	i = 0;
-	while (i < vars->args.philo_count)
+	vars->philo_id = 0;
+	while (vars->philo_id < vars->args.philo_count)
 	{
-		if (pthread_join(vars->philo[i].thread, NULL))
-			ft_quit_program(EXIT_FAILURE, vars, 0, 1);
-		i ++;
+		if (pthread_join(vars->philo[vars->philo_id].thread, NULL))
+			return (ft_return_error(EXIT_FAILURE, vars, 0, 1));
+		vars->philo_id ++;
 	}
-	pthread_mutex_destroy(&vars->mutex);
-	ft_free(vars->philo);
+	return (ft_return_error(EXIT_SUCCESS, vars, 0, 1));
 }
 
 static void	ft_get_args(int argc, char *argv[], t_vars *vars)
@@ -106,9 +107,9 @@ int	main(int argc, char *argv[])
 	{
 		while (*argv[i] == ' ')
 			*(argv + i) += 1;
-		if (!ft_isint(argv[i])
-			|| (ft_atoi_ull(argv[i]) == 0 && ft_strncmp(argv[i], "0", 1)
-				&& ft_strncmp(argv[i], "-0", 2) && ft_strncmp(argv[i], "+0", 2)))
+		if (!ft_isint(argv[i]) || (ft_atoi_ull(argv[i]) == 0
+				&& ft_strncmp(argv[i], "0", 1) && ft_strncmp(argv[i], "-0", 2)
+				&& ft_strncmp(argv[i], "+0", 2)))
 			return (EXIT_FAILURE);
 		i ++;
 	}
@@ -117,6 +118,5 @@ int	main(int argc, char *argv[])
 		|| vars.args.eat_time < 1 || vars.args.sleep_time < 1
 		|| vars.args.meals_count < 0)
 		return (EXIT_FAILURE);
-	philosophers(&vars);
-	return (EXIT_SUCCESS);
+	return (philosophers(&vars));
 }
