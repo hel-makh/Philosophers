@@ -7,11 +7,11 @@ MAIN			=	main.c
 SRCS			=	srcs/ft_strncmp.c\
 					srcs/ft_isint.c\
 					srcs/ft_atoi.c\
-					srcs/ft_atoi_ull.c\
+					srcs/ft_atoi_ld.c\
 					srcs/ft_calloc.c\
 					srcs/ft_free.c\
 					srcs/ft_get_timestamp.c\
-					srcs/ft_usleep.c\
+					srcs/ft_msleep.c\
 					srcs/ft_is_fork_surrounded.c\
 					srcs/ft_meals_count_reached.c\
 					srcs/ft_start_eating.c\
@@ -28,18 +28,18 @@ OBJS			=	$(SRCS:.c=.o)\
 # MAIN_BONUS		=	main_bonus.c
 
 # SRCS_BONUS		=	srcs/ft_strncmp.c\
-# 					srcs/ft_isint.c\
-# 					srcs/ft_atoi.c\
-# 					srcs/ft_atoi_ull.c\
-# 					srcs/ft_calloc.c\
-# 					srcs/ft_free.c\
-# 					srcs/ft_get_timestamp.c\
-#					srcs/ft_usleep.c\
-# 					srcs/ft_is_fork_surrounded.c\
-# 					srcs/ft_meals_count_reached.c\
-# 					srcs/ft_start_eating.c\
-# 					srcs/ft_start_sleeping.c\
-# 					srcs/ft_return_error.c
+#						srcs/ft_isint.c\
+#						srcs/ft_atoi.c\
+#						srcs/ft_atoi_ld.c\
+#						srcs/ft_calloc.c\
+#						srcs/ft_free.c\
+#						srcs/ft_get_timestamp.c\
+#						srcs/ft_msleep.c\
+#						srcs/ft_is_fork_surrounded.c\
+#						srcs/ft_meals_count_reached.c\
+#						srcs/ft_start_eating.c\
+#						srcs/ft_start_sleeping.c\
+#						srcs/ft_return_error.c
 
 # OBJS_BONUS		=	$(SRCS_BONUS:.c=.o)\
 # 					$(MAIN_BONUS:.c=.o)

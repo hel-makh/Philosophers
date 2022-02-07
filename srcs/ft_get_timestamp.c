@@ -12,10 +12,10 @@
 
 #include "../includes/philo.h"
 
-t_timestamp	ft_get_timestamp(void)
+long	ft_get_timestamp(void)
 {
 	struct timeval	time;
-	t_timestamp		timestamp;
+	long			timestamp;
 
 	gettimeofday(&time, NULL);
 	timestamp = time.tv_sec * 1000000;

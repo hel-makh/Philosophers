@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_ull.c                                      :+:      :+:    :+:   */
+/*   ft_atoi_ld.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 22:52:36 by hel-makh          #+#    #+#             */
-/*   Updated: 2022/02/01 16:07:01 by hel-makh         ###   ########.fr       */
+/*   Updated: 2022/02/08 00:08:07 by hel-makh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-unsigned long long	ft_atoi_ull(const char *str)
+long	ft_atoi_ld(const char *str)
 {
-	unsigned long long	sign;
-	unsigned long long	nbr;
+	long	sign;
+	long	nbr;
 
 	sign = 1;
 	nbr = 0;

@@ -24,11 +24,11 @@ int	ft_start_eating(t_vars *vars, int philo_id)
 	}
 	philo = &vars->philo[philo_id];
 	philo->right_hand = 1;
-	printf("%llu %d has taken a fork\n", ft_get_timestamp(), philo_id + 1);
+	printf("%ld %d has taken a fork\n", ft_get_timestamp(), philo_id + 1);
 	philo->left_hand = 1;
-	printf("%llu %d has taken a fork\n", ft_get_timestamp(), philo_id + 1);
+	printf("%ld %d has taken a fork\n", ft_get_timestamp(), philo_id + 1);
 	philo->last_meal = ft_get_timestamp();
-	printf("%llu %d is eating\n", philo->last_meal, philo_id + 1);
+	printf("%ld %d is eating\n", philo->last_meal, philo_id + 1);
 	philo->meals_count ++;
 	if (vars->args.meals_count && ft_meals_count_reached(*vars))
 	{
@@ -36,7 +36,8 @@ int	ft_start_eating(t_vars *vars, int philo_id)
 		return (-1);
 	}
 	pthread_mutex_unlock(&vars->mutex);
-	ft_usleep(vars->args.eat_time);
+	// ft_msleep(vars->args.eat_time);
+	usleep(vars->args.eat_time * 1000);
 	ft_start_sleeping(vars, philo_id);
 	return (EXIT_SUCCESS);
 }
