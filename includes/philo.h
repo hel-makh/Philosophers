@@ -63,7 +63,7 @@ int		ft_init_mutexes(t_vars *vars);
 void	ft_destroy_mutexes(t_vars *vars);
 int		ft_is_fork_surrounded(t_vars *vars, int philo_id);
 int		ft_meals_count_reached(t_vars vars);
-void	ft_print_state(t_vars *vars, char *state, int philo_id, long timestamp);
+void	ft_print_state(char *state, int philo_id, long timestamp, t_vars *vars);
 int		ft_start_eating(t_vars *vars, int philo_id);
 void	ft_start_sleeping(t_vars *vars, int philo_id);
 

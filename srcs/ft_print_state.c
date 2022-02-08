@@ -6,7 +6,7 @@
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 13:25:39 by hel-makh          #+#    #+#             */
-/*   Updated: 2022/02/08 19:07:49 by hel-makh         ###   ########.fr       */
+/*   Updated: 2022/02/09 00:42:25 by hel-makh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static char	*ft_strstr(const char *haystack, const char *needle)
 	return (0);
 }
 
-void	ft_print_state(t_vars *vars, char *state, int philo_id, long timestamp)
+void	ft_print_state(char *state, int philo_id, long timestamp, t_vars *vars)
 {
 	pthread_mutex_lock(&vars->state_change);
 	if (!vars->simulation_ended)
-		printf("%ld %d %s\n", timestamp, philo_id + 1, state);
+		printf("%ld %d %s\n", timestamp, philo_id, state);
 	if (ft_strstr("died", state))
 		vars->simulation_ended = 1;
 	pthread_mutex_unlock(&vars->state_change);

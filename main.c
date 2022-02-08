@@ -26,6 +26,29 @@
 // #include "srcs/ft_start_sleeping.c"
 // #include "srcs/ft_return_error.c"
 
+// static void	philo_change_state(t_vars *vars, int philo_id)
+// {
+// 	t_philo		*philo;
+
+// 	philo = &vars->philo[philo_id];
+// 	pthread_mutex_lock(&philo->right_fork);
+// 	ft_print_state("has taken a fork", philo_id + 1,
+// 		ft_get_current_time(vars), vars);
+// 	pthread_mutex_lock(philo->left_fork);
+// 	ft_print_state("has taken a fork", philo_id + 1,
+// 		ft_get_current_time(vars), vars);
+// 	philo->last_meal = ft_get_current_time(vars);
+// 	ft_print_state("is eating", philo_id + 1, philo->last_meal, vars);
+// 	usleep(vars->args.eat_time * 1000);
+// 	pthread_mutex_unlock(&philo->right_fork);
+// 	pthread_mutex_unlock(philo->left_fork);
+// 	ft_print_state("is sleeping", philo_id + 1,
+// 		ft_get_current_time(vars), vars);
+// 	usleep(vars->args.sleep_time * 1000);
+// 	ft_print_state("is thinking", philo_id + 1,
+// 		ft_get_current_time(vars), vars);
+// }
+
 static void	*start_simulation(void *arg)
 {
 	t_vars		*vars;
@@ -33,24 +56,24 @@ static void	*start_simulation(void *arg)
 	int			philo_id;
 
 	vars = (t_vars *)arg;
-	pthread_mutex_lock(&vars->mutex);
 	philo_id = vars->philo_id;
-	vars->philo[vars->philo_id].philo_id = vars->philo_id + 1;
 	philo = &vars->philo[philo_id];
 	philo->last_meal = ft_get_current_time(vars);
-	ft_print_state(vars, "is thinking", philo_id + 1, philo->last_meal);
-	pthread_mutex_unlock(&vars->mutex);
+	ft_print_state("is thinking", philo_id + 1, philo->last_meal, vars);
+	vars->philo[vars->philo_id].philo_id = philo_id + 1;
 	while (!vars->simulation_ended)
 	{
 		if (philo->last_meal + vars->args.die_time < ft_get_current_time(vars))
 		{
-			ft_print_state(vars, "died", philo_id + 1, ft_get_current_time(vars));
+			ft_print_state("died", philo_id + 1, ft_get_current_time(vars), vars);
 			break ;
 		}
 		if (ft_is_fork_surrounded(vars, philo_id))
 			if (ft_start_eating(vars, philo_id) == -1)
 				break ;
 	}
+	// while (!vars->simulation_ended)
+	// 	philo_change_state(vars, philo_id);
 	return (EXIT_SUCCESS);
 }
 

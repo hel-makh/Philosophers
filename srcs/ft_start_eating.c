@@ -24,13 +24,13 @@ int	ft_start_eating(t_vars *vars, int philo_id)
 	}
 	philo = &vars->philo[philo_id];
 	philo->right_hand = 1;
-	ft_print_state(vars, "has taken a fork", philo_id + 1,
-		ft_get_current_time(vars));
+	ft_print_state("has taken a fork", philo_id + 1,
+		ft_get_current_time(vars), vars);
 	philo->left_hand = 1;
-	ft_print_state(vars, "has taken a fork", philo_id + 1,
-		ft_get_current_time(vars));
+	ft_print_state("has taken a fork", philo_id + 1,
+		ft_get_current_time(vars), vars);
 	philo->last_meal = ft_get_current_time(vars);
-	ft_print_state(vars, "is eating", philo_id + 1, philo->last_meal);
+	ft_print_state("is eating", philo_id + 1, philo->last_meal, vars);
 	philo->meals_count ++;
 	if (vars->args.meals_count && ft_meals_count_reached(*vars))
 	{
