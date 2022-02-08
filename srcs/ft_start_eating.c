@@ -32,6 +32,7 @@ int	ft_start_eating(t_vars *vars, int philo_id)
 	philo->meals_count ++;
 	if (vars->args.meals_count && ft_meals_count_reached(*vars))
 	{
+		vars->simulation_ended = 1;
 		pthread_mutex_unlock(&vars->mutex);
 		return (-1);
 	}

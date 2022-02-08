@@ -40,7 +40,7 @@ static void	*start_simulation(void *arg)
 	philo->last_meal = ft_get_timestamp();
 	ft_print_state(vars, "is thinking", philo_id + 1, philo->last_meal);
 	pthread_mutex_unlock(&vars->mutex);
-	while (1)
+	while (!vars->simulation_ended)
 	{
 		if (philo->last_meal + vars->args.die_time < ft_get_timestamp())
 		{
@@ -88,7 +88,7 @@ int	main(int argc, char *argv[])
 	if (!vars.philo)
 		return (EXIT_FAILURE);
 	if (!ft_init_mutexes(&vars))
-		return (EXIT_FAILURE);
+		return (free(vars.philo), EXIT_FAILURE);
 	exit_status = philosophers(&vars);
 	ft_destroy_mutexes(&vars);
 	vars.philo = ft_free(vars.philo);
