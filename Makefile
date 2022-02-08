@@ -6,7 +6,7 @@ MAIN			=	main.c
 
 SRCS			=	srcs/ft_calloc.c\
 					srcs/ft_free.c\
-					srcs/ft_get_timestamp.c\
+					srcs/ft_get_current_time.c\
 					srcs/ft_msleep.c\
 					srcs/ft_parse_args.c\
 					srcs/ft_philo_mutex.c\
@@ -31,7 +31,7 @@ OBJS			=	$(SRCS:.c=.o)\
 #						srcs/ft_atoi_ld.c\
 #						srcs/ft_calloc.c\
 #						srcs/ft_free.c\
-#						srcs/ft_get_timestamp.c\
+#						srcs/ft_get_current_time.c\
 #						srcs/ft_msleep.c\
 #						srcs/ft_is_fork_surrounded.c\
 #						srcs/ft_meals_count_reached.c\

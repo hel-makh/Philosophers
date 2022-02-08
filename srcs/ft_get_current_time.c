@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_timestamp.c                                 :+:      :+:    :+:   */
+/*   ft_get_current_time.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,14 @@
 
 #include "../includes/philo.h"
 
-long	ft_get_timestamp(void)
+long	ft_get_current_time(t_vars *vars)
 {
 	struct timeval	time;
 	long			timestamp;
 
 	gettimeofday(&time, NULL);
 	timestamp = time.tv_sec * 1000000;
-	timestamp += time.tv_usec;
-	timestamp /= 1000;
+	timestamp += time.tv_usec / 1000;
+	timestamp -= vars->simulation_start;
 	return (timestamp);
 }

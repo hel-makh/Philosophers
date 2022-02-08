@@ -18,7 +18,7 @@
 // #include "srcs/ft_atoi_ld.c"
 // #include "srcs/ft_calloc.c"
 // #include "srcs/ft_free.c"
-// #include "srcs/ft_get_timestamp.c"
+// #include "srcs/ft_get_current_time.c"
 
 // #include "srcs/ft_is_fork_surrounded.c"
 // #include "srcs/ft_meals_count_reached.c"
@@ -37,14 +37,14 @@ static void	*start_simulation(void *arg)
 	philo_id = vars->philo_id;
 	vars->philo[vars->philo_id].philo_id = vars->philo_id + 1;
 	philo = &vars->philo[philo_id];
-	philo->last_meal = ft_get_timestamp();
+	philo->last_meal = ft_get_current_time(vars);
 	ft_print_state(vars, "is thinking", philo_id + 1, philo->last_meal);
 	pthread_mutex_unlock(&vars->mutex);
 	while (!vars->simulation_ended)
 	{
-		if (philo->last_meal + vars->args.die_time < ft_get_timestamp())
+		if (philo->last_meal + vars->args.die_time < ft_get_current_time(vars))
 		{
-			ft_print_state(vars, "died", philo_id + 1, ft_get_timestamp());
+			ft_print_state(vars, "died", philo_id + 1, ft_get_current_time(vars));
 			break ;
 		}
 		if (ft_is_fork_surrounded(vars, philo_id))
@@ -78,11 +78,15 @@ static int	philosophers(t_vars *vars)
 
 int	main(int argc, char *argv[])
 {
-	t_vars	vars;
-	int		exit_status;
+	t_vars			vars;
+	struct timeval	time;
+	int				exit_status;
 
 	if (argc < 5 || !ft_parse_args(argc, argv, &vars))
 		return (EXIT_FAILURE);
+	gettimeofday(&time, NULL);
+	vars.simulation_start = time.tv_sec * 1000000;
+	vars.simulation_start += time.tv_usec / 1000;
 	vars.simulation_ended = 0;
 	vars.philo = ft_calloc(vars.args.philo_count, sizeof(t_philo));
 	if (!vars.philo)

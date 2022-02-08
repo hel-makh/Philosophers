@@ -47,6 +47,7 @@ typedef struct s_vars {
 	int				philo_id;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	state_change;
+	long			simulation_start;
 	int				simulation_ended;
 }	t_vars;
 
@@ -54,7 +55,7 @@ void	*ft_calloc(size_t count, size_t size);
 void	*ft_free(void *ptr);
 void	*ft_free_2d(void **ptr);
 void	*ft_free_3d(void ***ptr);
-long	ft_get_timestamp(void);
+long	ft_get_current_time(t_vars *vars);
 void	ft_msleep(long sleeptime);
 
 int		ft_parse_args(int argc, char *argv[], t_vars *vars);
