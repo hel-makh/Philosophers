@@ -31,8 +31,10 @@ typedef struct s_args {
 
 typedef struct s_philo
 {
-	pthread_t		thread;
 	int				philo_id;
+	pthread_t		thread;
+	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*left_fork;
 	int				right_hand;
 	int				left_hand;
 	long			last_meal;
@@ -44,12 +46,10 @@ typedef struct s_vars {
 	t_philo			*philo;
 	int				philo_id;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	state_change;
+	int				simulation_ended;
 }	t_vars;
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_isint(const char *str);
-int		ft_atoi(const char *str);
-long	ft_atoi_ld(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_free(void *ptr);
 void	*ft_free_2d(void **ptr);
@@ -57,12 +57,13 @@ void	*ft_free_3d(void ***ptr);
 long	ft_get_timestamp(void);
 void	ft_msleep(long sleeptime);
 
+int		ft_parse_args(int argc, char *argv[], t_vars *vars);
+int		ft_init_mutexes(t_vars *vars);
+void	ft_destroy_mutexes(t_vars *vars);
 int		ft_is_fork_surrounded(t_vars *vars, int philo_id);
 int		ft_meals_count_reached(t_vars vars);
+void	ft_print_state(t_vars *vars, char *state, int philo_id, long timestamp);
 int		ft_start_eating(t_vars *vars, int philo_id);
 void	ft_start_sleeping(t_vars *vars, int philo_id);
-int		ft_return_error(
-			int status, t_vars *vars, int unlock_mutex, int destroy_mutex
-			);
 
 #endif

@@ -67,12 +67,11 @@ void	ft_start_sleeping(t_vars *vars, int philo_id)
 {
 	ft_drop_forks(vars, philo_id);
 	pthread_mutex_lock(&vars->mutex);
-	printf("%ld %d is sleeping\n", ft_get_timestamp(), philo_id + 1);
-	pthread_mutex_unlock(&vars->mutex);
+	ft_print_state(vars, "is sleeping", philo_id + 1, ft_get_timestamp());
 	pthread_mutex_unlock(&vars->mutex);
 	// ft_msleep(vars->args.sleep_time);
 	usleep(vars->args.sleep_time * 1000);
 	pthread_mutex_lock(&vars->mutex);
-	printf("%ld %d is thinking\n", ft_get_timestamp(), philo_id + 1);
+	ft_print_state(vars, "is thinking", philo_id + 1, ft_get_timestamp());
 	pthread_mutex_unlock(&vars->mutex);
 }

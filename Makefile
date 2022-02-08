@@ -4,19 +4,17 @@ NAME			=	philo
 
 MAIN			=	main.c
 
-SRCS			=	srcs/ft_strncmp.c\
-					srcs/ft_isint.c\
-					srcs/ft_atoi.c\
-					srcs/ft_atoi_ld.c\
-					srcs/ft_calloc.c\
+SRCS			=	srcs/ft_calloc.c\
 					srcs/ft_free.c\
 					srcs/ft_get_timestamp.c\
 					srcs/ft_msleep.c\
+					srcs/ft_parse_args.c\
+					srcs/ft_philo_mutex.c\
 					srcs/ft_is_fork_surrounded.c\
+					srcs/ft_print_state.c\
 					srcs/ft_meals_count_reached.c\
 					srcs/ft_start_eating.c\
-					srcs/ft_start_sleeping.c\
-					srcs/ft_return_error.c
+					srcs/ft_start_sleeping.c
 
 OBJS			=	$(SRCS:.c=.o)\
 					$(MAIN:.c=.o)
