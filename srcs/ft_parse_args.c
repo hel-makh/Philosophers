@@ -6,7 +6,7 @@
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 15:44:41 by hel-makh          #+#    #+#             */
-/*   Updated: 2022/02/08 18:14:23 by hel-makh         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:52:20 by hel-makh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int	ft_parse_args(int argc, char *argv[], t_vars *vars)
+int	ft_parse_args(int argc, char *argv[], t_args *args)
 {
 	int		i;
 
@@ -106,16 +106,16 @@ int	ft_parse_args(int argc, char *argv[], t_vars *vars)
 			return (0);
 		i ++;
 	}
-	vars->args.philo_count = ft_atoi(argv[1]);
-	vars->args.die_time = ft_atoi_ld(argv[2]);
-	vars->args.eat_time = ft_atoi_ld(argv[3]);
-	vars->args.sleep_time = ft_atoi_ld(argv[4]);
-	vars->args.meals_count = 0;
+	args->philo_count = ft_atoi(argv[1]);
+	args->die_time = ft_atoi_ld(argv[2]);
+	args->eat_time = ft_atoi_ld(argv[3]);
+	args->sleep_time = ft_atoi_ld(argv[4]);
+	args->meals_count = 0;
 	if (argc > 5)
-		vars->args.meals_count = ft_atoi(argv[5]);
-	if (vars->args.philo_count < 1 || vars->args.die_time < 1
-		|| vars->args.eat_time < 1 || vars->args.sleep_time < 1
-		|| vars->args.meals_count < 0)
+		args->meals_count = ft_atoi(argv[5]);
+	if (args->philo_count < 1 || args->die_time < 1
+		|| args->eat_time < 1 || args->sleep_time < 1
+		|| args->meals_count < 0)
 		return (0);
 	return (1);
 }

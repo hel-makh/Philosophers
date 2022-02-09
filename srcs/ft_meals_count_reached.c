@@ -12,14 +12,14 @@
 
 #include "../includes/philo.h"
 
-int	ft_meals_count_reached(t_vars vars)
+int	ft_meals_count_reached(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	while (i < vars.args.philo_count)
+	while (i < philo[0].vars->args.philo_count)
 	{
-		if (vars.philo[i].meals_count < vars.args.meals_count)
+		if (philo[i].meals_count < philo[i].vars->args.meals_count)
 			return (0);
 		i ++;
 	}

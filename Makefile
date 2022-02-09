@@ -10,11 +10,8 @@ SRCS			=	srcs/ft_calloc.c\
 					srcs/ft_msleep.c\
 					srcs/ft_parse_args.c\
 					srcs/ft_philo_mutex.c\
-					srcs/ft_is_fork_surrounded.c\
 					srcs/ft_print_state.c\
-					srcs/ft_meals_count_reached.c\
-					srcs/ft_start_eating.c\
-					srcs/ft_start_sleeping.c
+					srcs/ft_meals_count_reached.c
 
 OBJS			=	$(SRCS:.c=.o)\
 					$(MAIN:.c=.o)

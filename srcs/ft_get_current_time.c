@@ -18,8 +18,7 @@ long	ft_get_current_time(t_vars *vars)
 	long			timestamp;
 
 	gettimeofday(&time, NULL);
-	timestamp = time.tv_sec * 1000000;
-	timestamp += time.tv_usec / 1000;
+	timestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	timestamp -= vars->simulation_start;
 	return (timestamp);
 }
