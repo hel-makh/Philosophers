@@ -15,11 +15,11 @@
 static void	philo_change_state(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork);
-	ft_print_state("has taken a fork", philo, ft_get_current_time(philo->vars));
+	ft_print_state("has taken a fork", philo);
 	pthread_mutex_lock(philo->left_fork);
-	ft_print_state("has taken a fork", philo, ft_get_current_time(philo->vars));
+	ft_print_state("has taken a fork", philo);
 	philo->last_meal = ft_get_current_time(philo->vars);
-	ft_print_state("is eating", philo, philo->last_meal);
+	ft_print_state("is eating", philo);
 	philo->meals_count ++;
 	if (philo->vars->simulation_ended)
 	{
@@ -30,11 +30,11 @@ static void	philo_change_state(t_philo *philo)
 	usleep(philo->vars->args.eat_time * 1000);
 	pthread_mutex_unlock(&philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-	ft_print_state("is sleeping", philo, ft_get_current_time(philo->vars));
+	ft_print_state("is sleeping", philo);
 	if (philo->vars->simulation_ended)
 		return ;
 	usleep(philo->vars->args.sleep_time * 1000);
-	ft_print_state("is thinking", philo, ft_get_current_time(philo->vars));
+	ft_print_state("is thinking", philo);
 }
 
 static void	*spawn_philosopher(void *arg)
@@ -43,8 +43,8 @@ static void	*spawn_philosopher(void *arg)
 
 	philo = (t_philo *)arg;
 	philo->last_meal = ft_get_current_time(philo->vars);
-	ft_print_state("is thinking", philo, philo->last_meal);
-	if ((philo->philo_id + 1) % 2 == 0)
+	ft_print_state("is thinking", philo);
+	if ((philo->id + 1) % 2 == 0)
 		usleep(10);
 	while (!philo->vars->simulation_ended)
 		philo_change_state(philo);
@@ -63,10 +63,9 @@ static void	*watch_simulation(void *arg)
 	while (1)
 	{
 		if (philo[i].last_meal + philo[i].vars->args.die_time
-			< ft_get_current_time(philo[i].vars))
+			<= ft_get_current_time(philo[i].vars))
 		{
-			ft_print_state("died", &philo[i],
-				ft_get_current_time(philo[i].vars));
+			ft_print_state("died", &philo[i]);
 			break ;
 		}
 		if (philo[0].vars->args.meals_count && ft_meals_count_reached(philo))
@@ -118,7 +117,7 @@ static t_philo	*ft_init_philo(t_vars *vars)
 	i = 0;
 	while (i < vars->args.philo_count)
 	{
-		philo[i].philo_id = i;
+		philo[i].id = i;
 		philo[i].vars = vars;
 		i ++;
 	}

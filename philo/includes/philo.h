@@ -39,7 +39,7 @@ typedef struct s_vars {
 
 typedef struct s_philo
 {
-	int				philo_id;
+	int				id;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
@@ -59,7 +59,7 @@ int		ft_parse_args(int argc, char *argv[], t_args *args);
 int		ft_init_mutexes(t_philo *philo);
 void	ft_destroy_mutexes(t_philo *philo);
 int		ft_meals_count_reached(t_philo *philo);
-void	ft_print_state(char *state, t_philo *philo, long timestamp);
+void	ft_print_state(char *state, t_philo *philo);
 int		ft_start_eating(t_vars *vars, int philo_id);
 void	ft_start_sleeping(t_vars *vars, int philo_id);
 
