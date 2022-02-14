@@ -12,31 +12,6 @@
 
 #include "includes/philo.h"
 
-static void	philo_change_state(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->right_fork);
-	ft_print_state("has taken a fork", philo);
-	pthread_mutex_lock(philo->left_fork);
-	ft_print_state("has taken a fork", philo);
-	philo->last_meal = ft_get_current_time(philo->vars);
-	ft_print_state("is eating", philo);
-	philo->meals_count ++;
-	if (philo->vars->simulation_ended)
-	{
-		pthread_mutex_unlock(&philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-		return ;
-	}
-	usleep(philo->vars->args.eat_time * 1000);
-	pthread_mutex_unlock(&philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
-	ft_print_state("is sleeping", philo);
-	if (philo->vars->simulation_ended)
-		return ;
-	usleep(philo->vars->args.sleep_time * 1000);
-	ft_print_state("is thinking", philo);
-}
-
 static void	*spawn_philosopher(void *arg)
 {
 	t_philo		*philo;
@@ -47,34 +22,20 @@ static void	*spawn_philosopher(void *arg)
 	if ((philo->id + 1) % 2 == 0)
 		usleep(10);
 	while (!philo->vars->simulation_ended)
-		philo_change_state(philo);
-	return (NULL);
-}
-
-static void	*watch_simulation(void *arg)
-{
-	t_philo		*philo;
-	int			philo_count;
-	int			i;
-
-	philo = (t_philo *)arg;
-	philo_count = philo[0].vars->args.philo_count;
-	i = 0;
-	while (1)
 	{
-		if (philo[i].last_meal + philo[i].vars->args.die_time
-			<= ft_get_current_time(philo[i].vars))
-		{
-			ft_print_state("died", &philo[i]);
-			break ;
-		}
-		if (philo[0].vars->args.meals_count && ft_meals_count_reached(philo))
-		{
-			philo->vars->simulation_ended = 1;
-			break ;
-		}
-		if (++i == philo_count)
-			i = 0;
+		pthread_mutex_lock(&philo->right_fork);
+		ft_print_state("has taken a fork", philo);
+		pthread_mutex_lock(philo->left_fork);
+		ft_print_state("has taken a fork", philo);
+		philo->last_meal = ft_get_current_time(philo->vars);
+		ft_print_state("is eating", philo);
+		philo->meals_count ++;
+		ft_msleep(philo->vars->args.eat_time);
+		pthread_mutex_unlock(&philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		ft_print_state("is sleeping", philo);
+		ft_msleep(philo->vars->args.sleep_time);
+		ft_print_state("is thinking", philo);
 	}
 	return (NULL);
 }
@@ -83,9 +44,6 @@ static int	start_simulation(t_vars *vars, t_philo *philo)
 {
 	int	i;
 
-	if (pthread_create(&vars->watch_simulation, NULL,
-			&watch_simulation, (void *)philo))
-		return (EXIT_FAILURE);
 	i = 0;
 	while (i < vars->args.philo_count)
 	{
@@ -94,14 +52,19 @@ static int	start_simulation(t_vars *vars, t_philo *philo)
 			return (EXIT_FAILURE);
 		i ++;
 	}
-	if (pthread_join(vars->watch_simulation, NULL))
-		return (EXIT_FAILURE);
 	i = 0;
-	while (i < vars->args.philo_count)
+	while (1)
 	{
-		if (pthread_join(philo[i].thread, NULL))
-			return (EXIT_FAILURE);
-		i ++;
+		if (philo[i].last_meal + vars->args.die_time
+			<= ft_get_current_time(vars))
+			return (ft_print_state("died", &philo[i]), EXIT_SUCCESS);
+		if (vars->args.meals_count && ft_meals_count_reached(philo))
+		{
+			vars->simulation_ended = 1;
+			return (EXIT_SUCCESS);
+		}
+		if (++i == vars->args.philo_count)
+			i = 0;
 	}
 	return (EXIT_SUCCESS);
 }
