@@ -59,7 +59,5 @@ int		ft_init_mutexes(t_philo *philo);
 void	ft_destroy_mutexes(t_philo *philo);
 int		ft_meals_count_reached(t_philo *philo);
 void	ft_print_state(char *state, t_philo *philo);
-int		ft_start_eating(t_vars *vars, int philo_id);
-void	ft_start_sleeping(t_vars *vars, int philo_id);
 
 #endif
