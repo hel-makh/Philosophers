@@ -31,10 +31,10 @@ $(NAME):		$(OBJS) $(HEADER)
 all:			$(NAME)
 
 clean:
-				$(RM) $(OBJS) $(OBJS_BONUS)
+				$(RM) $(OBJS)
 
 fclean:			clean
-				$(RM) $(NAME) $(NAME_BONUS)
+				$(RM) $(NAME)
 
 re:				fclean all
 
