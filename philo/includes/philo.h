@@ -31,7 +31,6 @@ typedef struct s_args {
 
 typedef struct s_vars {
 	t_args			args;
-	pthread_t		watch_simulation;
 	pthread_mutex_t	state_change;
 	long			simulation_start;
 	int				simulation_ended;
