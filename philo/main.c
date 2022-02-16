@@ -17,10 +17,10 @@ static void	*spawn_philosopher(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	philo->last_meal = ft_get_current_time(philo->vars);
-	ft_print_state("is thinking", philo);
 	if ((philo->id + 1) % 2 == 0)
 		usleep(10);
+	philo->last_meal = ft_get_current_time(philo->vars);
+	ft_print_state("is thinking", philo);
 	while (!philo->vars->simulation_ended)
 	{
 		pthread_mutex_lock(&philo->right_fork);
