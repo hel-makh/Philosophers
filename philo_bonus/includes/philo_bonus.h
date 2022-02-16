@@ -23,7 +23,9 @@
 # include <signal.h>
 # include <limits.h>
 
-#define SEM "fork"
+# define FORK_SEM "fork"
+# define STATE_SEM "state"
+# define QUEUE_SEM "queue"
 
 typedef struct s_args {
 	int			philo_count;
@@ -35,9 +37,10 @@ typedef struct s_args {
 
 typedef struct s_vars {
 	t_args		args;
-	sem_t		*semaphore;
+	sem_t		*fork_sem;
+	sem_t		*state_sem;
+	sem_t		*queue_sem;
 	long		simulation_start;
-	int			simulation_ended;
 }	t_vars;
 
 typedef struct s_philo
@@ -57,7 +60,8 @@ long	ft_get_current_time(t_vars *vars);
 void	ft_msleep(long sleeptime);
 
 int		ft_parse_args(int argc, char *argv[], t_args *args);
-int		ft_meals_count_reached(t_philo *philo);
+int		ft_init_semaphores(t_vars *vars);
+void	ft_close_semaphores(t_vars *vars);
 void	ft_print_state(char *state, t_philo *philo);
 
 #endif
