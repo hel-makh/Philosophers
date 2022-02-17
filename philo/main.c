@@ -56,7 +56,7 @@ static int	start_simulation(t_vars *vars, t_philo *philo)
 	while (1)
 	{
 		if (philo[i].last_meal + vars->args.die_time
-			<= ft_get_current_time(vars))
+			< ft_get_current_time(vars))
 			return (ft_print_state("died", &philo[i]), EXIT_SUCCESS);
 		if (vars->args.meals_count && ft_meals_count_reached(philo))
 		{
