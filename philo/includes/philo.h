@@ -55,6 +55,7 @@ long	ft_get_current_time(t_vars *vars);
 void	ft_msleep(long sleeptime);
 
 int		ft_parse_args(int argc, char *argv[], t_args *args);
+t_philo	*ft_init_philos(t_vars *vars);
 int		ft_init_mutexes(t_philo *philo);
 void	ft_destroy_mutexes(t_philo *philo);
 int		ft_meals_count_reached(t_philo *philo);

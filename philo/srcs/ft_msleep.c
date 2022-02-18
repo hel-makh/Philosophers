@@ -6,7 +6,7 @@
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:23:17 by hel-makh          #+#    #+#             */
-/*   Updated: 2022/02/17 14:37:21 by hel-makh         ###   ########.fr       */
+/*   Updated: 2022/02/18 12:48:18 by hel-makh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_msleep(long sleeptime)
 	long	current_time;
 
 	current_time = ft_get_timestamp();
-	while (current_time + sleeptime >= ft_get_timestamp())
-		usleep(40);
+	usleep((sleeptime - 10) * 1000);
+	while (current_time + sleeptime > ft_get_timestamp())
+		usleep(50);
 }

@@ -18,7 +18,7 @@ static void	*spawn_philosopher(void *arg)
 
 	philo = (t_philo *)arg;
 	if ((philo->id + 1) % 2 == 0)
-		usleep(10);
+		usleep(100);
 	philo->last_meal = ft_get_current_time(philo->vars);
 	ft_print_state("is thinking", philo);
 	while (!philo->vars->simulation_ended)
@@ -44,19 +44,19 @@ static int	start_simulation(t_vars *vars, t_philo *philo)
 {
 	int	i;
 
-	i = 0;
-	while (i < vars->args.philo_count)
+	i = -1;
+	while (++i < vars->args.philo_count)
 	{
 		if (pthread_create(&philo[i].thread, NULL,
 				&spawn_philosopher, (void *)&philo[i]))
 			return (EXIT_FAILURE);
-		i ++;
 	}
 	i = 0;
 	while (1)
 	{
+		usleep(100);
 		if (philo[i].last_meal + vars->args.die_time
-			< ft_get_current_time(vars))
+			<= ft_get_current_time(vars))
 			return (ft_print_state("died", &philo[i]), EXIT_SUCCESS);
 		if (vars->args.meals_count && ft_meals_count_reached(philo))
 		{
@@ -67,24 +67,6 @@ static int	start_simulation(t_vars *vars, t_philo *philo)
 			i = 0;
 	}
 	return (EXIT_SUCCESS);
-}
-
-static t_philo	*ft_init_philo(t_vars *vars)
-{
-	t_philo	*philo;
-	int		i;
-
-	philo = ft_calloc(vars->args.philo_count, sizeof(t_philo));
-	if (!philo)
-		return (NULL);
-	i = 0;
-	while (i < vars->args.philo_count)
-	{
-		philo[i].id = i;
-		philo[i].vars = vars;
-		i ++;
-	}
-	return (philo);
 }
 
 int	main(int argc, char *argv[])
@@ -99,7 +81,7 @@ int	main(int argc, char *argv[])
 	gettimeofday(&time, NULL);
 	vars.simulation_start = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	vars.simulation_ended = 0;
-	philo = ft_init_philo(&vars);
+	philo = ft_init_philos(&vars);
 	if (!philo)
 		return (EXIT_FAILURE);
 	if (!ft_init_mutexes(philo))

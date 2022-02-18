@@ -9,6 +9,7 @@ SRCS			=	srcs/ft_calloc.c\
 					srcs/ft_get_current_time.c\
 					srcs/ft_msleep.c\
 					srcs/ft_parse_args.c\
+					srcs/ft_init_philos.c\
 					srcs/ft_philo_mutex.c\
 					srcs/ft_print_state.c\
 					srcs/ft_meals_count_reached.c
