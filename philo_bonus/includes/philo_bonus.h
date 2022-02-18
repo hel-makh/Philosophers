@@ -25,7 +25,7 @@
 
 # define FORK_SEM "fork"
 # define STATE_SEM "state"
-# define QUEUE_SEM "queue"
+# define MEALS_SEM "meals"
 
 typedef struct s_args {
 	int			philo_count;
@@ -39,7 +39,9 @@ typedef struct s_vars {
 	t_args		args;
 	sem_t		*fork_sem;
 	sem_t		*state_sem;
-	sem_t		*queue_sem;
+	sem_t		*meals_sem;
+	pid_t		*pid;
+	pthread_t	meals_counter;
 	long		simulation_start;
 }	t_vars;
 
@@ -60,6 +62,7 @@ long	ft_get_current_time(t_vars *vars);
 void	ft_msleep(long sleeptime);
 
 int		ft_parse_args(int argc, char *argv[], t_args *args);
+t_philo	*ft_init_philos(t_vars *vars);
 int		ft_init_semaphores(t_vars *vars);
 void	ft_close_semaphores(t_vars *vars);
 void	ft_print_state(char *state, t_philo *philo);
