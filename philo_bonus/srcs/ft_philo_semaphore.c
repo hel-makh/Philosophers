@@ -6,7 +6,7 @@
 /*   By: hel-makh <hel-makh@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:23:36 by hel-makh          #+#    #+#             */
-/*   Updated: 2022/02/17 12:07:41 by hel-makh         ###   ########.fr       */
+/*   Updated: 2022/02/17 17:57:28 by hel-makh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_close_semaphores(t_vars *vars)
 {
 	sem_unlink(FORK_SEM);
 	sem_unlink(STATE_SEM);
-	sem_unlink(QUEUE_SEM);
+	sem_unlink(MEALS_SEM);
 	sem_close(vars->fork_sem);
 	sem_close(vars->state_sem);
-	sem_close(vars->queue_sem);
+	sem_close(vars->meals_sem);
 }
 
 int	ft_init_semaphore(sem_t	**sem, char *sem_name, int value)
@@ -45,7 +45,7 @@ int	ft_init_semaphores(t_vars *vars)
 		sem_close(vars->fork_sem);
 		return (0);
 	}
-	if (!ft_init_semaphore(&vars->queue_sem, QUEUE_SEM, 0))
+	if (!ft_init_semaphore(&vars->meals_sem, MEALS_SEM, 0))
 	{
 		sem_unlink(FORK_SEM);
 		sem_unlink(STATE_SEM);
